@@ -1,0 +1,77 @@
+<!-- This is the feed.html file for the fampay backend assessment
+
+Author : Raunakjit Kar Bhowmik
+Date : 26th September, 2020 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta name="raunakjit" content="" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+<title> Live Youtube Feed </title>
+</head>
+<body bgcolor="#8c8c8c">
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger" style="background-color: #fffff;">
+  <a class="navbar-brand" href="#">Live Youtube Feed</a>
+</nav>
+
+<div class="table-responsive">
+  	<table class="table table-sm" id="youtube_videos" bgcolor="#8c8c8c" border="0"  > 
+  		<thead>
+      	<tr>
+					<th></th>
+					<th>Thumbnail url</th>
+      	  <th>Title</th>
+          <th>Desciption</th>
+          <th>Date and Time</th>
+          <th>Video ID</th>
+      	  
+        </tr>
+      </thead>
+      <tbody>
+      	
+          {% for video in Videos %}
+          <tr>
+						<td></td>
+						<td><a href={{video.thumbnail_url}}><img src={{video.thumbnail_url}} width="140" height="100"></a></td>
+          	<td>{{video.title}}</td>
+            <td>{{video.description}}</td>
+            <td>{{video.published_at}}</td>
+            <td><a href="https://www.youtube.com/watch?v={{video.vid_id}}"" color=" blue">{{video.vid_id}}</a></td>
+                      </tr>
+          {% endfor %}
+
+      </tbody>
+  	</table>
+
+	</div>
+
+	<div class="pagination">
+    		{% if Videos.has_previous %}
+        <a class="pagination-action" href="?page=1">&nbsp;<<<&nbsp;  </a>
+        <a class="pagination-action" href="?page={{Videos.previous_page_number}}">&nbsp;  < &nbsp; </a>
+	        {% endif %}
+          {% for num in Videos.paginator.page_range %}
+          {% if Videos.number == num %}
+          <span class="pagination-number pagination-current"> &nbsp; {{num}} &nbsp; </span>
+          {% else %}
+          <a class="pagination-number" href="?page={{ num }}"> &nbsp; {{num}} &nbsp; </a>
+          {% endif %}
+
+          {% endfor %}
+          {% if Videos.has_next %}
+          <a class="pagination-action" href="?page={{Videos.next_page_number }}"> &nbsp; > &nbsp; </a>
+          <a class="pagination-action" href="?page={{Videos.paginator.num_pages}}"> &nbsp; >>> &nbsp; </a>
+          {% endif %}
+        </div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
